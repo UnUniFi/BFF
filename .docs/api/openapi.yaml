@@ -1,0 +1,409 @@
+openapi: 3.1.0
+info:
+  contact:
+    email: ununifi.io
+    name: ununifi
+    url: https://ununifi.io/
+  description: 'polling server for ununifi chain  '
+  termsOfService: https://ununifi.io/
+  title: info
+  version: "1.0"
+servers:
+- url: http://localhost:3000/api/v1
+tags:
+- name: nft
+paths:
+  /nft:
+    get:
+      description: get nfts
+      operationId: get-nfts
+      parameters:
+      - description: nft class name
+        explode: true
+        in: query
+        name: class_name
+        required: false
+        schema: {}
+        style: form
+      - description: nft name
+        explode: true
+        in: query
+        name: nft_name
+        required: false
+        schema: {}
+        style: form
+      - $ref: '#/components/parameters/listing_status'
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                Example 1:
+                  value:
+                  - id:
+                      class_id: string
+                      nft_id: string
+                    nft_class:
+                      id: string
+                      name: string
+                      symbol: string
+                      description: string
+                      uri: string
+                      uri_hash: string
+                    nft:
+                      class_id: string
+                      id: string
+                      uri: string
+                      uri_hash: string
+                    meta:
+                      id: string
+                      image: string
+                      image_data: string
+                      external_url: string
+                      description: string
+                      name: string
+                      attributes:
+                      - id: string
+                        trait_type: string
+                        display_type: string
+                        value: string
+                    listing:
+                      id:
+                        class_id: string
+                        nft_id: string
+                      owner:
+                        address: string
+                      listing_type: DIRECT_ASSET_BORROW
+                      state: LISTING
+                      bid_token: string
+                      minimum_deposit_rate: 0.1
+                      automatic_refinancing: true
+                      started_at: 2019-08-24T14:15:22Z
+                      end_at: 2019-08-24T14:15:22Z
+                      full_payment_end_at: 2019-08-24T14:15:22Z
+                      collected_amount:
+                        amount: string
+                        denom: string
+                      minimum_bidding_period: 2019-08-24T14:15:22Z
+              schema:
+                items:
+                  $ref: '#/components/schemas/Nft_info'
+          description: NFTs Found
+        "404":
+          description: User Not Found
+      summary: Get Listed NFTs
+      tags:
+      - nft
+  /nft/{class_id}/{nft_id}:
+    get:
+      description: get one nft info
+      operationId: get-nft-id
+      parameters:
+      - $ref: '#/components/parameters/listing_status'
+      - explode: false
+        in: path
+        name: class_id
+        required: true
+        schema: {}
+        style: simple
+      - explode: false
+        in: path
+        name: nft_id
+        required: true
+        schema: {}
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                Example 1:
+                  value:
+                    id:
+                      class_id: string
+                      nft_id: string
+                    nft_class:
+                      id: string
+                      name: string
+                      symbol: string
+                      description: string
+                      uri: string
+                      uri_hash: string
+                    nft:
+                      class_id: string
+                      id: string
+                      uri: string
+                      uri_hash: string
+                    meta:
+                      id: string
+                      image: string
+                      image_data: string
+                      external_url: string
+                      description: string
+                      name: string
+                      attributes:
+                      - id: string
+                        trait_type: string
+                        display_type: string
+                        value: string
+                    listing:
+                      id:
+                        class_id: string
+                        nft_id: string
+                      owner:
+                        address: string
+                      listing_type: DIRECT_ASSET_BORROW
+                      state: LISTING
+                      bid_token: string
+                      minimum_deposit_rate: 0.1
+                      automatic_refinancing: true
+                      started_at: 2019-08-24T14:15:22Z
+                      end_at: 2019-08-24T14:15:22Z
+                      full_payment_end_at: 2019-08-24T14:15:22Z
+                      collected_amount:
+                        amount: string
+                        denom: string
+                      minimum_bidding_period: 2019-08-24T14:15:22Z
+              schema:
+                $ref: '#/components/schemas/Nft_info'
+          description: OK
+        "404":
+          description: Not Found
+      summary: Get NFT info
+      tags:
+      - nft
+    parameters:
+    - explode: false
+      in: path
+      name: class_id
+      required: true
+      schema: {}
+      style: simple
+    - explode: false
+      in: path
+      name: nft_id
+      required: true
+      schema: {}
+      style: simple
+components:
+  parameters:
+    listing_status:
+      description: listing status
+      explode: true
+      in: query
+      name: status
+      required: false
+      schema:
+        enum:
+        - LISTING
+        - BIDDING
+        - SELLING_DECISION
+        - END_LISTING
+        - SUCCESSFUL_BID
+      style: form
+  schemas:
+    Cosmos-address:
+      example:
+        address: ""
+      properties:
+        address: {}
+      title: cosmos-address
+      x-stoplight:
+        id: 2hgt1m9iespc1
+    Cosmos_nft_class:
+      example:
+        symbol: ""
+        name: ""
+        description: ""
+        uri_hash: ""
+        id: ""
+        uri: ""
+      properties:
+        id: {}
+        name: {}
+        symbol: {}
+        description: {}
+        uri: {}
+        uri_hash: {}
+      title: basic_nft_info
+      x-stoplight:
+        id: tphvm0ghh5yv8
+    Cosmos_nft_nft:
+      example:
+        class_id: ""
+        uri_hash: ""
+        id: ""
+        uri: ""
+      properties:
+        class_id: {}
+        id: {}
+        uri: {}
+        uri_hash: {}
+      title: cosmos_nft_nft
+      x-stoplight:
+        id: rr51vd7ucl5qx
+    Denom:
+      example:
+        amount: ""
+        denom: ""
+      properties:
+        amount: {}
+        denom: {}
+      title: denom
+      x-stoplight:
+        id: 08gv5ayjnlcko
+    Listing:
+      example:
+        owner:
+          address: ""
+        end_at: ""
+        full_payment_end_at: ""
+        minimum_bidding_period: ""
+        automatic_refinancing: ""
+        bid_token: uguu
+        listing_type: ""
+        minimum_deposit_rate: 0.1
+        started_at: ""
+        id:
+          nft_id: ""
+          class_id: ""
+        state: ""
+        collected_amount:
+          amount: ""
+          denom: ""
+      properties:
+        id:
+          $ref: '#/components/schemas/Nft-id'
+        owner:
+          $ref: '#/components/schemas/Cosmos-address'
+        listing_type:
+          enum:
+          - DIRECT_ASSET_BORROW
+          - SYNTHETIC_ASSET_CREATION - LATE_SHIPPING
+        state:
+          enum:
+          - LISTING
+          - BIDDING
+          - SELLING_DECISION
+          - END_LISTING
+          - SUCCESSFUL_BID
+        bid_token:
+          example: uguu
+        minimum_deposit_rate:
+          example: 0.1
+          format: float
+          minimum: 0
+        automatic_refinancing: {}
+        started_at:
+          format: date-time
+        end_at:
+          format: date-time
+        full_payment_end_at:
+          format: date-time
+        collected_amount:
+          $ref: '#/components/schemas/Denom'
+        minimum_bidding_period:
+          format: date-time
+      title: listing
+      x-stoplight:
+        id: 1mj410nuspp9a
+    Nft-id:
+      example:
+        nft_id: ""
+        class_id: ""
+      properties:
+        class_id: {}
+        nft_id: {}
+      title: nft-id
+      x-stoplight:
+        id: w3lghx7mhkc91
+    Nft_info:
+      example:
+        nft_class:
+          symbol: ""
+          name: ""
+          description: ""
+          uri_hash: ""
+          id: ""
+          uri: ""
+        meta:
+          image: ""
+          external_url: ""
+          image_data: ""
+          name: ""
+          description: ""
+          attributes: ""
+        id:
+          nft_id: ""
+          class_id: ""
+        listing:
+          owner:
+            address: ""
+          end_at: ""
+          full_payment_end_at: ""
+          minimum_bidding_period: ""
+          automatic_refinancing: ""
+          bid_token: uguu
+          listing_type: ""
+          minimum_deposit_rate: 0.1
+          started_at: ""
+          id:
+            nft_id: ""
+            class_id: ""
+          state: ""
+          collected_amount:
+            amount: ""
+            denom: ""
+        nft:
+          class_id: ""
+          uri_hash: ""
+          id: ""
+          uri: ""
+      properties:
+        id:
+          $ref: '#/components/schemas/Nft-id'
+        nft_class:
+          $ref: '#/components/schemas/Cosmos_nft_class'
+        nft:
+          $ref: '#/components/schemas/Cosmos_nft_nft'
+        meta:
+          $ref: '#/components/schemas/Nft_meta'
+        listing:
+          $ref: '#/components/schemas/Listing'
+      required:
+      - id
+      title: nft_info
+      x-stoplight:
+        id: s1nilax7erj76
+    Nft_meta:
+      example:
+        image: ""
+        external_url: ""
+        image_data: ""
+        name: ""
+        description: ""
+        attributes: ""
+      properties:
+        image: {}
+        image_data: {}
+        external_url: {}
+        description: {}
+        name: {}
+        attributes:
+          items:
+            $ref: '#/components/schemas/Nft_meta_attr'
+          minItems: 0
+      title: nft_meta
+      x-stoplight:
+        id: qycsyv43g9nfb
+    Nft_meta_attr:
+      properties:
+        trait_type: {}
+        display_type: {}
+        value: {}
+      title: nft_meta_attr
+      x-stoplight:
+        id: y5mqze9rn0rmb
+x-stoplight:
+  id: 1hl3l9oaenmd8
+x-internal: false

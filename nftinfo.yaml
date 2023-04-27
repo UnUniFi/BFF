@@ -1,0 +1,591 @@
+{
+  "openapi": "3.1.0",
+  "x-stoplight": {
+    "id": "1hl3l9oaenmd8"
+  },
+  "info": {
+    "title": "info",
+    "version": "1.0",
+    "contact": {
+      "name": "ununifi",
+      "url": "https://ununifi.io/",
+      "email": "ununifi.io"
+    },
+    "description": "polling server for ununifi chain  ",
+    "summary": "polling server",
+    "termsOfService": "https://ununifi.io/"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1"
+    }
+  ],
+  "paths": {
+    "/nft": {
+      "parameters": [],
+      "get": {
+        "summary": "Get Listed NFTs",
+        "tags": [
+          "nft"
+        ],
+        "responses": {
+          "200": {
+            "description": "NFTs Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Nft_info"
+                  }
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": [
+                      {
+                        "id": {
+                          "class_id": "string",
+                          "nft_id": "string"
+                        },
+                        "nft_class": {
+                          "id": "string",
+                          "name": "string",
+                          "symbol": "string",
+                          "description": "string",
+                          "uri": "string",
+                          "uri_hash": "string"
+                        },
+                        "nft": {
+                          "class_id": "string",
+                          "id": "string",
+                          "uri": "string",
+                          "uri_hash": "string"
+                        },
+                        "meta": {
+                          "id": "string",
+                          "image": "string",
+                          "image_data": "string",
+                          "external_url": "string",
+                          "description": "string",
+                          "name": "string",
+                          "attributes": [
+                            {
+                              "id": "string",
+                              "trait_type": "string",
+                              "display_type": "string",
+                              "value": "string"
+                            }
+                          ]
+                        },
+                        "listing": {
+                          "id": {
+                            "class_id": "string",
+                            "nft_id": "string"
+                          },
+                          "owner": {
+                            "address": "string"
+                          },
+                          "listing_type": "DIRECT_ASSET_BORROW",
+                          "state": "LISTING",
+                          "bid_token": "string",
+                          "minimum_deposit_rate": 0.1,
+                          "automatic_refinancing": true,
+                          "started_at": "2019-08-24T14:15:22Z",
+                          "end_at": "2019-08-24T14:15:22Z",
+                          "full_payment_end_at": "2019-08-24T14:15:22Z",
+                          "collected_amount": {
+                            "amount": "string",
+                            "denom": "string"
+                          },
+                          "minimum_bidding_period": "2019-08-24T14:15:22Z"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User Not Found"
+          }
+        },
+        "operationId": "get-nfts",
+        "description": "get nfts",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "class_name",
+            "description": "nft class name"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "nft_name",
+            "description": "nft name"
+          },
+          {
+            "$ref": "#/components/parameters/listing_status"
+          }
+        ]
+      }
+    },
+    "/nft/{class_id}/{nft_id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "class_id",
+          "in": "path",
+          "required": true
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "nft_id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Get NFT info",
+        "tags": [
+          "nft"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Nft_info"
+                },
+                "examples": {
+                  "Example 1": {
+                    "value": {
+                      "id": {
+                        "class_id": "string",
+                        "nft_id": "string"
+                      },
+                      "nft_class": {
+                        "id": "string",
+                        "name": "string",
+                        "symbol": "string",
+                        "description": "string",
+                        "uri": "string",
+                        "uri_hash": "string"
+                      },
+                      "nft": {
+                        "class_id": "string",
+                        "id": "string",
+                        "uri": "string",
+                        "uri_hash": "string"
+                      },
+                      "meta": {
+                        "id": "string",
+                        "image": "string",
+                        "image_data": "string",
+                        "external_url": "string",
+                        "description": "string",
+                        "name": "string",
+                        "attributes": [
+                          {
+                            "id": "string",
+                            "trait_type": "string",
+                            "display_type": "string",
+                            "value": "string"
+                          }
+                        ]
+                      },
+                      "listing": {
+                        "id": {
+                          "class_id": "string",
+                          "nft_id": "string"
+                        },
+                        "owner": {
+                          "address": "string"
+                        },
+                        "listing_type": "DIRECT_ASSET_BORROW",
+                        "state": "LISTING",
+                        "bid_token": "string",
+                        "minimum_deposit_rate": 0.1,
+                        "automatic_refinancing": true,
+                        "started_at": "2019-08-24T14:15:22Z",
+                        "end_at": "2019-08-24T14:15:22Z",
+                        "full_payment_end_at": "2019-08-24T14:15:22Z",
+                        "collected_amount": {
+                          "amount": "string",
+                          "denom": "string"
+                        },
+                        "minimum_bidding_period": "2019-08-24T14:15:22Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "operationId": "get-nft-id",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/listing_status"
+          }
+        ],
+        "description": "get one nft info"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Cosmos-address": {
+        "title": "cosmos-address",
+        "x-stoplight": {
+          "id": "2hgt1m9iespc1"
+        },
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          }
+        }
+      },
+      "Cosmos_nft_class": {
+        "title": "basic_nft_info",
+        "x-stoplight": {
+          "id": "tphvm0ghh5yv8"
+        },
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string"
+          },
+          "uri_hash": {
+            "type": "string"
+          }
+        }
+      },
+      "Cosmos_nft_nft": {
+        "title": "cosmos_nft_nft",
+        "x-stoplight": {
+          "id": "rr51vd7ucl5qx"
+        },
+        "type": "object",
+        "properties": {
+          "class_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string"
+          },
+          "uri_hash": {
+            "type": "string"
+          }
+        }
+      },
+      "Denom": {
+        "title": "denom",
+        "x-stoplight": {
+          "id": "08gv5ayjnlcko"
+        },
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "string"
+          },
+          "denom": {
+            "type": "string"
+          }
+        }
+      },
+      "Listing": {
+        "title": "listing",
+        "x-stoplight": {
+          "id": "1mj410nuspp9a"
+        },
+        "type": "object",
+        "examples": [
+          {
+            "id": {
+              "class_id": "string",
+              "nft_id": "string"
+            },
+            "owner": {
+              "address": "string"
+            },
+            "listing_type": "DIRECT_ASSET_BORROW",
+            "state": "LISTING",
+            "bid_token": "string",
+            "minimum_deposit_rate": 0.1,
+            "automatic_refinancing": true,
+            "started_at": "2019-08-24T14:15:22Z",
+            "end_at": "2019-08-24T14:15:22Z",
+            "full_payment_end_at": "2019-08-24T14:15:22Z",
+            "collected_amount": {
+              "amount": "string",
+              "denom": "string"
+            },
+            "minimum_bidding_period": "2019-08-24T14:15:22Z"
+          }
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Nft-id"
+          },
+          "owner": {
+            "$ref": "#/components/schemas/Cosmos-address"
+          },
+          "listing_type": {
+            "type": "string",
+            "enum": [
+              "DIRECT_ASSET_BORROW",
+              "SYNTHETIC_ASSET_CREATION - LATE_SHIPPING"
+            ]
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "LISTING",
+              "BIDDING",
+              "SELLING_DECISION",
+              "END_LISTING",
+              "SUCCESSFUL_BID"
+            ]
+          },
+          "bid_token": {
+            "type": "string",
+            "example": "uguu"
+          },
+          "minimum_deposit_rate": {
+            "type": "number",
+            "format": "float",
+            "example": 0.1,
+            "minimum": 0
+          },
+          "automatic_refinancing": {
+            "type": "boolean"
+          },
+          "started_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "full_payment_end_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "collected_amount": {
+            "$ref": "#/components/schemas/Denom"
+          },
+          "minimum_bidding_period": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Nft-id": {
+        "title": "nft-id",
+        "x-stoplight": {
+          "id": "w3lghx7mhkc91"
+        },
+        "type": "object",
+        "properties": {
+          "class_id": {
+            "type": "string"
+          },
+          "nft_id": {
+            "type": "string"
+          }
+        }
+      },
+      "Nft_info": {
+        "title": "nft_info",
+        "x-stoplight": {
+          "id": "s1nilax7erj76"
+        },
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/Nft-id",
+            "description": "nft_class_id/nft_id"
+          },
+          "nft_class": {
+            "$ref": "#/components/schemas/Cosmos_nft_class"
+          },
+          "nft": {
+            "$ref": "#/components/schemas/Cosmos_nft_nft"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Nft_meta"
+          },
+          "listing": {
+            "$ref": "#/components/schemas/Listing"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "examples": [
+          {
+            "id": {
+              "class_id": "string",
+              "nft_id": "string"
+            },
+            "nft_class": {
+              "id": "string",
+              "name": "string",
+              "symbol": "string",
+              "description": "string",
+              "uri": "string",
+              "uri_hash": "string"
+            },
+            "nft": {
+              "class_id": "string",
+              "id": "string",
+              "uri": "string",
+              "uri_hash": "string"
+            },
+            "meta": {
+              "id": "string",
+              "image": "string",
+              "image_data": "string",
+              "external_url": "string",
+              "description": "string",
+              "name": "string",
+              "attributes": [
+                {
+                  "id": "string",
+                  "trait_type": "string",
+                  "display_type": "string",
+                  "value": "string"
+                }
+              ]
+            },
+            "listing": {
+              "id": {
+                "class_id": "string",
+                "nft_id": "string"
+              },
+              "owner": {
+                "address": "string"
+              },
+              "listing_type": "DIRECT_ASSET_BORROW",
+              "state": "LISTING",
+              "bid_token": "string",
+              "minimum_deposit_rate": 0.1,
+              "automatic_refinancing": true,
+              "started_at": "2019-08-24T14:15:22Z",
+              "end_at": "2019-08-24T14:15:22Z",
+              "full_payment_end_at": "2019-08-24T14:15:22Z",
+              "collected_amount": {
+                "amount": "string",
+                "denom": "string"
+              },
+              "minimum_bidding_period": "2019-08-24T14:15:22Z"
+            }
+          }
+        ]
+      },
+      "Nft_meta": {
+        "title": "nft_meta",
+        "x-stoplight": {
+          "id": "qycsyv43g9nfb"
+        },
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string"
+          },
+          "image_data": {
+            "type": "string"
+          },
+          "external_url": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "array",
+            "minItems": 0,
+            "items": {
+              "$ref": "#/components/schemas/Nft_meta_attr"
+            }
+          }
+        }
+      },
+      "Nft_meta_attr": {
+        "title": "nft_meta_attr",
+        "x-stoplight": {
+          "id": "y5mqze9rn0rmb"
+        },
+        "type": "object",
+        "properties": {
+          "trait_type": {
+            "type": "string"
+          },
+          "display_type": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "listing_status": {
+        "in": "query",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "LISTING",
+            "BIDDING",
+            "SELLING_DECISION",
+            "END_LISTING",
+            "SUCCESSFUL_BID"
+          ]
+        },
+        "description": "listing status",
+        "name": "status"
+      }
+    }
+  },
+  "x-internal": false,
+  "tags": [
+    {
+      "name": "nft"
+    }
+  ]
+}
